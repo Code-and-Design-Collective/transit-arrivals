@@ -5,8 +5,8 @@ export default component$(() => {
   return (
     <>
       <div id="homepage">
-        <div className="flex justify-center">
-          <div className="intro">Home Page</div>
+        <div class="flex justify-center">
+          <div class="intro">Home Page</div>
         </div>
       </div>
     </>
