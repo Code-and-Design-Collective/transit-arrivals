@@ -23,7 +23,6 @@ export default component$(() => {
 
   useTask$(async () => {
     arrivals.value = await fetchArrivals();
-    console.log(arrivals.value);
   });
 
   return (
