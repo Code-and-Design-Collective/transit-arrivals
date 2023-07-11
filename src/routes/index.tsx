@@ -4,10 +4,9 @@ import {
   useResource$,
   useSignal,
 } from '@builder.io/qwik';
-import { RequestHandler } from '@builder.io/qwik-city';
 import axios from 'axios';
 
-import { convertToMinutes } from '~/utils/date';
+// import { convertToMinutes } from '~/utils/date';
 
 import type { DocumentHead } from '@builder.io/qwik-city';
 import type { StopArrivals } from '~/interfaces/Arrivals';
@@ -43,7 +42,7 @@ export default component$(() => {
                 <div class='flex flex-col gap-y-[1.5rem]'>
                   <h2>{arrivals.location[0]?.desc}</h2>
                   <ul class='flex flex-col gap-y-[1rem] justify-center items-center text-center'>
-                    {arrivals?.arrival.map((arrival, i) => (
+                    {arrivals?.arrival.map((arrival) => (
                       <li key={arrival.id}>{arrival.estimated}</li>
                     ))}
                   </ul>
