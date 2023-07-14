@@ -3,6 +3,12 @@ export const getCurrentYear = (): number => {
   return currentDate.getFullYear();
 };
 
-export const convertToMinutes = (timestamp: number) => {
-  return Math.round(timestamp / 60000);
+export const getArrivalTimeMinutes = (
+  arrival: number,
+  queryTime: number
+): number => {
+  const differenceMillis = arrival - queryTime;
+  const differenceMinutes = Math.floor(differenceMillis / (1000 * 60));
+
+  return differenceMinutes;
 };

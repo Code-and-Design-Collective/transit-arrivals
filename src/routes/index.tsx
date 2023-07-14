@@ -6,7 +6,7 @@ import {
 } from '@builder.io/qwik';
 import axios from 'axios';
 
-// import { convertToMinutes } from '~/utils/date';
+import { getArrivalTimeMinutes } from '~/utils/date';
 
 import type { DocumentHead } from '@builder.io/qwik-city';
 import type { StopArrivals } from '~/interfaces/Arrivals';
@@ -23,7 +23,7 @@ export default component$(() => {
     try {
       const query = `${apiBaseUrl}/arrivals?locIDs=${stopID.value},&appID=${appId}`;
       const { data } = await axios.get(query);
-      // console.log(data.resultSet);
+
       return data.resultSet;
     } catch (error) {
       console.error('Error occurred while fetching arrivals:', error);
@@ -33,17 +33,33 @@ export default component$(() => {
 
   return (
     <>
-      <div id='homepage'>
-        <div class='flex justify-center'>
+      <div id='homepage' class='w-full'>
+        <div class='flex justify-center w-full'>
           <Resource
             value={arrivalsResource}
             onResolved={(arrivals) => {
               return (
-                <div class='flex flex-col gap-y-[1.5rem]'>
-                  <h2>{arrivals.location[0]?.desc}</h2>
-                  <ul class='flex flex-col gap-y-[1rem] justify-center items-center text-center'>
-                    {arrivals?.arrival.map((arrival) => (
-                      <li key={arrival.id}>{arrival.estimated}</li>
+                <div class='flex flex-col gap-y-[1.5rem] w-full justify-center'>
+                  <div class='title flex justify-between text-[2rem] px-[2rem]'>
+                    <h2>{arrivals.location[0]?.desc}</h2>
+                    <div class='stop'>STOP #{stopID.value}</div>
+                  </div>
+                  <ul class='flex flex-col justify-center items-center w-full'>
+                    {arrivals.arrival.map((item, index) => (
+                      <li
+                        key={index}
+                        style={{ backgroundColor: `#${item.routeColor}` }}
+                        class='w-full flex justify-between py-[2rem] text-[3rem] px-[2rem]'
+                      >
+                        <div class='title'>{item.shortSign}</div>
+                        <div class='time'>
+                          {getArrivalTimeMinutes(
+                            item.estimated,
+                            arrivals.queryTime
+                          )}{' '}
+                          Min
+                        </div>
+                      </li>
                     ))}
                   </ul>
                 </div>
