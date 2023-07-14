@@ -17,10 +17,6 @@ const appId = import.meta.env.VITE_TRIMET_APP_ID;
 export default component$(() => {
   const stopID = useSignal('10764');
 
-  const getBgColor = (hex: string): string => {
-    return `bg-[#${hex}]`;
-  };
-
   const arrivalsResource = useResource$<StopArrivals>(async ({ track }) => {
     track(() => stopID.value);
 
@@ -44,7 +40,7 @@ export default component$(() => {
             onResolved={(arrivals) => {
               return (
                 <div class='flex flex-col gap-y-[1.5rem] w-full justify-center'>
-                  <div className='title flex justify-between text-[2rem] px-[2rem]'>
+                  <div class='title flex justify-between text-[2rem] px-[2rem]'>
                     <h2>{arrivals.location[0]?.desc}</h2>
                     <div class='stop'>STOP #{stopID.value}</div>
                   </div>
